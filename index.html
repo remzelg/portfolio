@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="shortcut icon" href="/portfolio/favicon.ico"><title>Remy's Portfolio</title><style></style><link href="/portfolio/static/css/main.e34392e0.css" rel="stylesheet"></head><body><section class="initial-section"><canvas></canvas><div class="initial-section-details"><div>Hi I'm Remy Carr</div><div>I'm a Full Stack Web Developer</div><button id="initial-section-button">View My Work</button></div></section><section class="resume-section"><h1>Remy Carr</h1><img class="headshot" src="remy-square.jpg"><div>Incomplet Resume Section Wahoo!</div></section><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script type="text/javascript">// Helper Functions
       function distance(rect, p) {
         var dx = Math.max(rect.left - p.x, 0, p.x - rect.right);
-        var dy = Math.max(rect.top - window.scrollY - p.y, 0, p.y - rect.bottom - window.scrollY);
+        var dy = Math.max(rect.top + window.scrollY - p.y, 0, p.y - (rect.bottom + window.scrollY));
         return Math.sqrt(dx*dx + dy*dy);
       }
       function random(min, max) {
@@ -24,13 +24,13 @@
       let width = canvas.width = window.innerWidth;
       let height = canvas.height = window.innerHeight;
       let speedFactor = 0.25;
+      let central_button = document.getElementById('initial-section-button');
+      let central_button_rect = central_button.getBoundingClientRect();
       // Change speed and size of balls depending on mouse location
       canvas.addEventListener('mousemove', e => {
         x = e.clientX - rect.left;
         y = e.clientY - rect.top;
         speedFactor = 0.25 - 0.25 * (y / height);
-        let central_button = document.getElementById('initial-section-button');
-        let central_button_rect = central_button.getBoundingClientRect();
       });
 
       function Ball() {
@@ -70,12 +70,12 @@
         if (dist < this.size) { //Ball Collision with Button
           central_button.style.background = this.color;
           let cbr = central_button_rect;
-          if (this.x > cbr.left && this.x < cbr.right && this.y > cbr.top && this.y < cbr.bottom) {
+          if (this.x > cbr.left && this.x < cbr.right && this.y > cbr.top + window.scrollY && this.y < cbr.bottom + window.scrollY) {
             this.hidden = true;
             return;
           } else if (this.x > cbr.left && this.x < cbr.right) {
             this.velY = -this.velY;
-          } else if (this.y - window.scrollY > cbr.top && this.y + window.scrollY - cbr.bottom) {
+          } else if (this.y > cbr.top + window.scrollY && this.y < cbr.bottom + window.scrollY) {
             this.velX = -this.velX;
           } else {
             this.velY = -this.velY;
