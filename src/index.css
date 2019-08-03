@@ -1,5 +1,65 @@
+:root {
+  --main-bg-color: coral; 
+  --white: #FAFAFA;
+  --button-background: #52E3F6;
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: karla, sans-serif;
+  background: var(--white);
+}
+canvas {
+  width: 100%;
+  height: 100vh;
+}
+/* Initial Section (Bouncing Balls Section) */
+#initial-section {
+  background: darkgrey;
+  width: 100%;
+  height: 100vh;
+  color: white;
+}
+.initial-section-details {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  height: 200px;
+  margin-left: -200px;
+  margin-top: -100px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 30px;
+}
+#name {
+  color: #F92672;
+}
+#initial-section-button {
+  margin-top: 12px;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background: var(--button-background);
+  color: var(--white);
+  font-family: karla, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+}
+#initial-section-button:hover {
+  background: var(--white);
+  color: var(--button-background);
+}
+
+/* Resume Section */
+#resume-section {
+
+}
+.headshot {
+  border-radius: 50%;
 }
