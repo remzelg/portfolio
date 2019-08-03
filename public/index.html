@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <title>Remy's Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <section class='initial-section'>
+    <section id='initial-section'>
       <canvas></canvas>
       <div class='initial-section-details'>
-        <div>Hi I'm Remy Carr</div>
+        <div>Hi I am <span id='name'>Remy Carr</span></div>
         <div>I'm a Full Stack Web Developer</div>
         <button id='initial-section-button'>View My Work</button>
       </div>
     </section>
 
-    <section class='resume-section'>
+    <section id='resume-section'>
       <h1>Remy Carr</h1>
       <img class='headshot' src='remy-square.jpg'>
-      <div>Incomplet Resume Section Wahoo!</div>
+      <div>Incomplete Resume Section Wahoo!</div>
     </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -44,7 +46,7 @@
         }
         return opt2;
       }
-
+      let root = document.documentElement;
       let canvas = document.querySelector('canvas');
       let ctx = canvas.getContext('2d');
       let rect = canvas.getBoundingClientRect();
@@ -52,7 +54,6 @@
       let height = canvas.height = window.innerHeight;
       let speedFactor = 0.25;
       let central_button = document.getElementById('initial-section-button');
-      let central_button_rect = central_button.getBoundingClientRect();
       // Change speed and size of balls depending on mouse location
       canvas.addEventListener('mousemove', e => {
         x = e.clientX - rect.left;
@@ -90,12 +91,11 @@
           this.velY = -(this.velY);
         }
 
-        let central_button = document.getElementById('initial-section-button');
         let central_button_rect = central_button.getBoundingClientRect();
         let point = { x: this.x - 8, y: this.y };
         let dist = distance(central_button_rect, point);
         if (dist < this.size) { //Ball Collision with Button
-          central_button.style.background = this.color;
+          document.documentElement.style.setProperty('--button-background', this.color);
           let cbr = central_button_rect;
           if (this.x > cbr.left && this.x < cbr.right && this.y > cbr.top + window.scrollY && this.y < cbr.bottom + window.scrollY) {
             this.hidden = true;
@@ -114,10 +114,10 @@
       }
       var balls = []
       function loop() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillStyle = '#272822';
         ctx.fillRect(0, 0, width, height);
 
-        while (balls.length < 200) {
+        while (balls.length < 150) {
           var ball = new Ball();
           balls.push(ball);
         }
@@ -130,6 +130,13 @@
         requestAnimationFrame(loop);
       }
       loop();
+
+      //UX Time
+      $('#initial-section-button').on('click', function (e) {
+        $('html, body').animate({
+          scrollTop: $("#resume-section").offset().top
+        }, 'slow');
+      });
     </script>
   </body>
 </html>
